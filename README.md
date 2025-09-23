@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KTP Tech Workshop #2 – Git, Zustand, and React Query
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This workshop builds on **Workshop #1**, focusing on deploying projects to GitHub and introducing two new tools in the KTP Tech Stack: **Zustand** for global state management and **React Query** for server state management. Attendees also learn about Git and GitHub workflows, how KTP manages project contributions, and how to upload new projects to GitHub.
+
+## Slides
+
+The slides that were used during the workshop can be found [here](Tech%20workshop%202.pdf).
+
+## URL
+
+The live URL of the web app that this repository creates can be found [here](https://ktp-usc.github.io/tech-workshop-2/).
+
+---
+
+## Prerequisites
+
+* GitHub account
+* IntelliJ WebStorm (or VS Code)
+* Node.js
+* Git OR Git for Windows
+
+---
+
+## Zustand
+
+* Lightweight, minimal boilerplate
+* Easier alternative to Redux
+* Built around hooks and `useState`
+* Supports actions, reducers, and persistence
+
+### Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install zustand
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* View [`store.ts`](/store.ts) to see the Zustand store.
+* View [`app/page.tsx`](/app/page.tsx) and [`app/page2/page.tsx`](/app/page2/page.tsx) to see how the store is used in multiple React components.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## React Query
 
-To learn more about Next.js, take a look at the following resources:
+This will be covered in Tech Workshop #3!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploying to GitHub
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Edit `next.config.js` (set base path if deploying to repo pages)
+2. Create GitHub Actions workflow (`deploy.yml`)
+3. Go to Settings → Actions → General → enable Read/Write
+4. Go to Settings → Pages → Build and deployment → set source to GitHub Actions
