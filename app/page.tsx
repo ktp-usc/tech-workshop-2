@@ -1,20 +1,38 @@
-"use client"
+"use client";
 
-import Link from "next/link";
-import { useCounterStore } from "@/store";
+import { useQuery } from "@tanstack/react-query";
+
+type Post = {
+    userId: number,
+    id: number,
+    title: string,
+    body: string,
+}
+
+async function fetchPosts(): Promise<Post[]> {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts")
+    return response.json()
+}
 
 export default function Home() {
-    const { count, increment, decrement } = useCounterStore();
+    const { data, error, isLoading, isError } = useQuery({ queryKey: ["posts"], queryFn: fetchPosts })
 
-  return (
-    <div className="flex flex-col items-center justify-center gap-y-4 h-screen">
-        <h1 className="font-bold text-5xl">Counter</h1>
-        <p className="border border-solid border-white rounded-2xl px-10 py-8 text-5xl">{count}</p>
-        <div className="flex gap-2">
-            <button onClick={increment} className="border border-white border-solid rounded-2xl p-2 cursor-pointer text-2xl">Count Up</button>
-            <button onClick={decrement} className="border border-white border-solid rounded-2xl p-2 cursor-pointer text-2xl">Count Down</button>
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+
+    if (isError) {
+        return <p className="text-red-500">Error: {(error as Error).message}</p>
+    }
+
+    return (
+        <div className="flex flex-col gap-y-10 px-4 my-4">
+            {data?.map((post, key) => (
+                <div key={key} className="border border-solid border-white p-4">
+                    <p>Title: {post.title}</p>
+                    <p>Body: {post.body}</p>
+                </div>
+            ))}
         </div>
-        <Link href="/page2">Go to page 2</Link>
-    </div>
-  );
+    );
 }
